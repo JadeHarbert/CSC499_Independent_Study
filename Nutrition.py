@@ -3,30 +3,49 @@ from SpellChecker import check_key_spelling
 
 
 def get_dictionary(text_file):
-    print(text_file)
     file = open(text_file, 'r')
     lines = file.readlines()
-    info = file.read()
-    print(info)
     nutritional_content = {
 
     }
+    corrected_lines = []
 
-    # Regex for name, grammy business, and percentage
     for line in lines:
-        z = re.search('O[c-m]+g|o[c-m]+g', line)
+        newline = False
+        # Searches for O's that should be zeros and corrects them
+        z = re.search('O[c-m]*g|o[c-m]*g', line)
+        x = re.search('[0-9]+9', line)
+        y = re.search('i[c-m]*g', line)
         if z:
-            ln = line
             words = z.string.split()
             for word in words:
-                if re.search('O[c-m]+g|o[c-m]+g', word):
+                if re.search('O[c-m]*g|o[c-m]*g', word):
                     characters = '0' + word[1:]
-                    print("Old Line: " + ln)
-                    ln.replace(word, characters)
-                    ln.replace('Omcg', '0mcg')
-                    print("New Line: " + ln)
+                    ln = line.replace(word, characters)
+                    corrected_lines.append(ln)
+                    newline = True
 
-    for line in lines:
+        if x:
+            words = x.string.split()
+            for word in words:
+                if re.search('[0-9]+9', word):
+                    characters = word[:-1] + 'g'
+                    ln = line.replace(word, characters)
+                    corrected_lines.append(ln)
+                    newline = True
+        if y:
+            words = y.string.split()
+            for word in words:
+                if re.search('i[c-m]*g', word):
+                    characters = '1' + word[1:]
+                    ln = line.replace(word, characters)
+                    corrected_lines.append(ln)
+                    newline = True
+
+        if not newline:
+            corrected_lines.append(line)
+
+    for line in corrected_lines:
         # x = re.search('[0-9]+[c-m]+', line)
         x = False
         y = re.search('[0-9]+[c-m]+.*?[0-9]+[c-m]+', line)
@@ -69,7 +88,6 @@ def get_dictionary(text_file):
         else:
             x = re.search('[0-9]+[c-m]+', line)
         if x:
-            print(x.string)
             words = x.string.split()
             name = ''
             amount = ''
@@ -88,10 +106,6 @@ def get_dictionary(text_file):
                 elif re.search('[0-9]+[c-m]+', word):
                     amount = word
             name = name.strip()
-
-            # print('Name: ' + name[1:])
-            # print('Amount: ' + amount)
-            # print('Percentage: ' + percentage + '\n\n')
 
             nutritional_content.update({name: (amount, percentage)})
 

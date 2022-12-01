@@ -58,7 +58,7 @@ def input_file():
             else:
                 weight = int(weight)
 
-            new_weight = num_servings * weight
+            new_weight = round(num_servings * weight, 2)
             if unit[0] == "<" or unit[0] == ">":
                 new_weight = unit[0] + str(new_weight) + unit[1:]
             else:
@@ -75,7 +75,7 @@ def input_file():
                         num = num + char
                 num = int(num)
 
-                new_percentage = num_servings * num
+                new_percentage = round(num_servings * num, 2)
                 new_percentage = str(new_percentage) + '%'
                 nutritional_content.update({key: (new_weight, new_percentage)})
             except ValueError:

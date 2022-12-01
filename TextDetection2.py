@@ -59,7 +59,6 @@ def detect_text(input_file_path):
 
     recognizedTxtName = r"\Recognized Words.txt"
     recognizedTxtFile = outFilesDirectory + recognizedTxtName
-    print(recognizedTxtFile)
 
     file = open(recognizedTxtFile, "w+")
     file.write("")
@@ -94,7 +93,6 @@ def detect_text(input_file_path):
 
     # Apply OCR on the cropped image
     text = pytesseract.image_to_string(cropped)
-    print(pytesseract.get_tesseract_version)
 
     file.write(text)
     file.write("\n")

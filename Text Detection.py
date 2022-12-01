@@ -10,6 +10,7 @@ outFilesDirectory = directory + r"\Output Files"
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 
+
 # inputImgName = r"\Example Nutrition Label 2.jpg"
 # inputImgName = r"\Cropped Example Nutrition Label 2.jpg"
 # inputImgName = r"\OPENCV Sample Image.jpg"
