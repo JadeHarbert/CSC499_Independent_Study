@@ -1,18 +1,21 @@
-from spellchecker import SpellChecker
-# import jamspell
+import enchant
 
 
 def check_key_spelling(dictionary):
-    spell = SpellChecker()
+    nutrient_dict = enchant.PyPWL(r'C:\Users\Mike\Desktop\Computer Science Files\Independent Study\Python\Input '
+                                  r'Files\nutrients_dict.txt')
+    dict = dictionary.copy()
     for key, value in dictionary.items():
         words = key.split()
-        misspelled = spell.unknown(words)
-        for word in misspelled:
-            print("Old Word: " + word)
-            # correct = spell.correction(word)
-            try:
-                print("New Word: " + spell.correction(word))
-            except TypeError:
-                print("Word is correct")
+        k = ''
+        for word in words:
 
-    # corrector = jamspell.TSpellCorrector()
+            if not nutrient_dict.check(word):
+                suggestions = nutrient_dict.suggest(word)
+                correction = suggestions[0]
+                k = k + " " + correction
+        k = k.strip()
+        dict[k] = dict.pop(key)
+
+    for key, value in dict.items():
+        print(key, ":", value)
