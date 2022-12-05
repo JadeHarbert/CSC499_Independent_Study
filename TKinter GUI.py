@@ -39,7 +39,7 @@ def calculate_new_servings(nutrition, num_servings):
             # If the character is a digit, append it to weight
             if char.isdigit():
                 weight = weight + char
-            # If the character is a . then append it to weight and set isFloat to true so we can do float arithmetic
+            # If the character is a . then append it to weight and set isFloat to true, so we can do float arithmetic
             elif char == '.':
                 weight = weight + char
                 isfloat = True
@@ -137,7 +137,6 @@ def input_file():
             window.destroy()
         except _tkinter.TclError:
             pass
-        end_program = False
 
         new_nutrition = generate_nutrition_dictionary(file_path)
         # Print new nutritional values
