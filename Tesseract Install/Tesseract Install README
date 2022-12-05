@@ -1,0 +1,1 @@
+Install Tesseract then change line 18 in TextDetection.py to the full path to your tesseract executable

@@ -1,2 +1,4 @@
 opencv-python~=4.6.0.66
 pytesseract~=0.3.10
+regex~=2022.10.31
+pyenchant~=3.2.2
